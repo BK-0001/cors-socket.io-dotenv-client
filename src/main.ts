@@ -1,24 +1,28 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import "./style.css";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+$("#app").html(`
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+    <h1>Chatroom</h1>
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+    <ul>
+      <li>demo message</li>
+    </ul>
+
+    <form>
+      <input type="text" />
+      <button>SEND</button>
+    </form>
+  </div>
+`);
+
+const formElement = $("form");
+const inputElement = $("input");
+const ulElement = $("ul");
+formElement.on("submit", (event: JQuery.SubmitEvent) => {
+  event.preventDefault();
+
+  const inputValue = inputElement.val();
+
+  const listItem = $(`<li>${inputValue}</li>`);
+  ulElement.append(listItem);
+});

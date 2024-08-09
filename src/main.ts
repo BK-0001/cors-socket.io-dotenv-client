@@ -1,4 +1,7 @@
+import { io } from "socket.io-client";
 import "./style.css";
+
+const socket = io("http://localhost:8000");
 
 $("#app").html(`
   <div>
@@ -24,5 +27,12 @@ formElement.on("submit", (event: JQuery.SubmitEvent) => {
   const inputValue = inputElement.val();
 
   const listItem = $(`<li>${inputValue}</li>`);
+  ulElement.append(listItem);
+
+  socket.emit("message", inputValue);
+});
+
+socket.on("message", (message) => {
+  const listItem = $(`<li>${message}</li>`);
   ulElement.append(listItem);
 });
